@@ -1,0 +1,12 @@
+// https://pl.kotl.in/L1i0Qk7Zx
+fun main() {
+    val count: Int = 2
+    println(count)
+}
+
+// https://pl.kotl.in/EU_VuQP1u
+fun main() {
+    val count: Int = 2
+    println("You have count unread messages.")
+}
+
