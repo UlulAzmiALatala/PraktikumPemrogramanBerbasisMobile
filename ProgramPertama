@@ -2,4 +2,50 @@ fun main() {
     println("Hello, world!!!")
     println("Hello, Android!")
     println("Hello, Android!")
+    println("Today is sunny!")
+}
+
+//Latihan 1
+fun main() {
+    println("1")
+    println("2")
+    println("3")
+}
+
+//Latihan 2
+fun main() {
+    println("I'm")
+    println("learning")
+    println("Kotlin!")
+}
+
+//Latihan 3
+fun main() {
+    println("Monday")
+    println("Tuesday")
+    println("Wednesday")
+    println("Thursday")
+    println("Friday")
+}
+
+//Latihan 4
+fun main() {
+    println("Tomorrow is rainy")
+}
+
+//Latihan 5
+fun main() {
+    println("There is a chance of snow")
+}
+
+//Latihan 6
+fun main() {
+    println("Cloudy")
+    println("Partly Cloudy")
+    println("Windy")
+}
+
+//Latihan 7
+fun main() {
+    println("How's the weather today?")
 }
