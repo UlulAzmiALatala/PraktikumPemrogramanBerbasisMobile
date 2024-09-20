@@ -1,25 +1,39 @@
+// https://pl.kotl.in/8WPzaP5_U
 fun main() {
     println("Hello, world!!!")
-    println("Hello, Android!")
-    println("Hello, Android!")
-    println("Today is sunny!")
 }
 
-//Latihan 1
+// https://pl.kotl.in/fklGcXbkn
+fun main() {
+println("Hello, Android!")
+}
+
+// https://pl.kotl.in/_8n9_hEWD
+fun main() {
+println("Hello, Android!")
+println("Hello, Android!")
+}
+
+// https://pl.kotl.in/uEst78D8d
+fun main() {
+println("Today is sunny!")
+}
+
+// Latihan 1 https://pl.kotl.in/S_INUap9g
 fun main() {
     println("1")
     println("2")
     println("3")
 }
 
-//Latihan 2
+// Latihan 2 https://pl.kotl.in/_QKVskC-_
 fun main() {
     println("I'm")
     println("learning")
     println("Kotlin!")
 }
 
-//Latihan 3
+// Latihan 3 https://pl.kotl.in/WZiwALesF
 fun main() {
     println("Monday")
     println("Tuesday")
@@ -28,24 +42,24 @@ fun main() {
     println("Friday")
 }
 
-//Latihan 4
+// Latihan 4 https://pl.kotl.in/_1c_xkBMX
 fun main() {
     println("Tomorrow is rainy")
 }
 
-//Latihan 5
+// Latihan 5 https://pl.kotl.in/NfvI5qPm5
 fun main() {
     println("There is a chance of snow")
 }
 
-//Latihan 6
+// Latihan 6 https://pl.kotl.in/vW92f8bTF
 fun main() {
     println("Cloudy")
     println("Partly Cloudy")
     println("Windy")
 }
 
-//Latihan 7
+// Latihan 7 https://pl.kotl.in/o0a630kgM
 fun main() {
     println("How's the weather today?")
 }
