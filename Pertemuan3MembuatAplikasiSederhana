@@ -1,31 +1,41 @@
-// MainActivity.kt
-
-package ululazmi.alatala
+package com.example.aplikasiku
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import ululazmi.alatala.ui.theme.KepinganKentangTheme
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.aplikasiku.ui.theme.AplikasikuTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            KepinganKentangTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        name = "Ulul Azmi A. Latala",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            AplikasikuTheme {
+                // Mengatur warna latar belakang aplikasi dengan warna biru muda
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color(0xFFF0F4F8) // Warna latar belakang biru muda
+                ) {
+                    BusinessCard() // Memanggil komponen kartu bisnis
                 }
             }
         }
@@ -33,96 +43,110 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hai $name!",
-        modifier = modifier
-    )
-}
+fun BusinessCard() {
+    // State untuk mengontrol ekspansi informasi kontak
+    var expanded by remember { mutableStateOf(false) }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    KepinganKentangTheme {
-        Greeting("Ulul Azmi A. Latala")
-    }
-}
+    // Kartu utama yang berisi semua informasi kontak dan data pribadi
+    Card(
+        modifier = Modifier
+            .fillMaxWidth() // Membuat kartu memenuhi lebar layar
+            .padding(16.dp) // Margin luar
+            .animateContentSize( // Animasi ketika kartu diperluas/diciutkan
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy, // Menentukan animasi dengan efek bouncing
+                    stiffness = Spring.StiffnessLow
+                )
+            )
+            .clip(RoundedCornerShape(16.dp)), // Membuat sudut kartu membulat
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Ketinggian bayangan kartu
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF3F51B5)) // Warna kartu indigo
+    ) {
+        // Kolom untuk mengatur elemen di dalam kartu secara vertikal
+        Column(
+            modifier = Modifier
+                .fillMaxWidth() // Membuat kolom memenuhi lebar kartu
+                .padding(16.dp), // Padding dalam kolom
+            horizontalAlignment = Alignment.CenterHorizontally // Mengatur konten ke tengah secara horizontal
+        ) {
+            // Ikon profil
+            Icon(
+                imageVector = Icons.Default.Person, // Menggunakan ikon profil standar
+                contentDescription = "Profile picture", // Deskripsi untuk aksesibilitas
+                modifier = Modifier.size(120.dp), // Ukuran ikon
+                tint = Color.White // Warna ikon
+            )
+            Spacer(modifier = Modifier.height(16.dp)) // Ruang kosong antara ikon dan teks nama
+            // Nama pengguna
+            Text(
+                text = "Ulul Azmi A. Latala", // Nama yang ditampilkan
+                fontSize = 24.sp, // Ukuran font
+                fontWeight = FontWeight.Bold, // Ketebalan font
+                color = Color.White // Warna teks putih
+            )
+            // Nomor identitas (seperti NIM)
+            Text(
+                text = "225410086", // Menampilkan nomor identitas
+                fontSize = 18.sp, // Ukuran font lebih kecil
+                color = Color(0xFFFFD54F) // Warna teks kuning untuk kontras
+            )
+            Spacer(modifier = Modifier.height(24.dp)) // Ruang antara teks identitas dan informasi kontak
+            // Menampilkan informasi kontak seperti nomor telepon dan email
+            ContactInfo(Icons.Default.Phone, "+6282196699498", expanded)
+            ContactInfo(Icons.Default.Email, "ullulazmia.l@gmail.com", expanded)
+            ContactInfo(Icons.Default.Email, "ulul.azmi@students.utdi.ac.id", expanded)
 
-// AndroidManifest.xml
-
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.KepinganKentang"
-        tools:targetApi="31" >
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.KepinganKentang" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>
-
-// Menambahkan Elemen teks baru
-package ululazmi.alatala
-
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import ululazmi.alatala.ui.theme.KepinganKentangTheme
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            KepinganKentangTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    GreetingText(
-                        message = "Ulul Azmi A. Latala",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            // Tombol untuk memperluas atau menciutkan informasi kontak
+            Button(
+                onClick = { expanded = !expanded }, // Mengubah state 'expanded' saat tombol diklik
+                modifier = Modifier.padding(top = 16.dp), // Padding di atas tombol
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD54F)) // Warna tombol kuning
+            ) {
+                Text(
+                    if (expanded) "Ba..!!!" else "Cilup", // Mengganti teks tombol berdasarkan status 'expanded'
+                    color = Color(0xFF3F51B5) // Warna teks tombol
+                )
             }
         }
     }
 }
 
 @Composable
-fun GreetingText(message: String, modifier: Modifier = Modifier) {
-    Text(
-        text = message
-    )
+fun ContactInfo(icon: ImageVector, text: String, expanded: Boolean) {
+    // Baris untuk setiap item informasi kontak
+    Row(
+        verticalAlignment = Alignment.CenterVertically, // Mengatur ikon dan teks sejajar secara vertikal
+        modifier = Modifier
+            .fillMaxWidth() // Membuat baris memenuhi lebar
+            .padding(vertical = 4.dp) // Padding antara setiap baris
+    ) {
+        // Ikon kontak
+        Icon(
+            imageVector = icon, // Ikon (telepon atau email)
+            contentDescription = null, // Konten deskripsi dihilangkan karena hanya dekoratif
+            modifier = Modifier.size(24.dp), // Ukuran ikon kontak
+            tint = Color(0xFFFFD54F) // Warna kuning untuk ikon kontak
+        )
+        Spacer(modifier = Modifier.width(8.dp)) // Ruang antara ikon dan teks
+        // Teks informasi kontak
+        if (expanded) { // Jika 'expanded' bernilai true, tampilkan teks lengkap
+            Text(
+                text = text, // Menampilkan informasi kontak yang sesungguhnya
+                color = Color.White // Warna teks putih
+            )
+        } else { // Jika tidak, tampilkan placeholder
+            Text(
+                text = "Tap to show", // Placeholder teks
+                color = Color.White.copy(alpha = 0.6f) // Warna teks putih dengan opasitas 60%
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    KepinganKentangTheme {
-        GreetingText(message = "Selamat Datang di Toko Kami")
+fun BusinessCardPreview() {
+    AplikasikuTheme {
+        BusinessCard() // Pratinjau komponen kartu bisnis
     }
 }
