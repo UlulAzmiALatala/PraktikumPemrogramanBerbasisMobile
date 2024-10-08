@@ -88,6 +88,7 @@ fun LemonadeWithButtonAndImage(modifier: Modifier = Modifier) {
 }
 
 //strings.xml
+
 <resources>
     <string name="Lemonade">Lemonade</string>
     <string name="lemon_tree">Tap the lemon tree to select a lemon</string>
