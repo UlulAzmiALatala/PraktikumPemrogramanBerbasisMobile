@@ -1,7 +1,6 @@
 /*PRAKTIK 1: PERILAKU KLIK*/
 
 //MainActivity.kt
-
 package com.example.lemonade
 
 import android.os.Bundle
@@ -87,8 +86,8 @@ fun LemonadeWithButtonAndImage(modifier: Modifier = Modifier) {
     }
 }
 
-//strings.xml
 
+//strings.xml
 <resources>
     <string name="Lemonade">Lemonade</string>
     <string name="lemon_tree">Tap the lemon tree to select a lemon</string>
@@ -101,7 +100,6 @@ fun LemonadeWithButtonAndImage(modifier: Modifier = Modifier) {
 /*PRAKTIK 2: MENGHITUNG TIP KUSTOM*/
 
 //MainActivity.kt
-
 package com.example.tiptime
 
 import android.os.Bundle
@@ -115,8 +113,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -200,7 +196,7 @@ fun TipTimeLayout() {
         )
         EditNumberField(
             label = R.string.tip_percentage,
-            leadingIcon = R.drawable.percent,
+            leadingIcon = R.drawable.persen,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -247,7 +243,7 @@ fun EditNumberField(
         .fillMaxWidth()
         .padding(8.dp),
         onValueChange = onValueChanged,
-        label = { Text(stringResource(R.string.bill_amount)) },
+        label = { Text(stringResource(label)) },
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next
@@ -301,8 +297,8 @@ fun TipTimeLayoutPreview() {
     }
 }
 
-// strings.xml
 
+// strings.xml
 <resources>
     <string name="app_name">Tip Time</string>
     <string name="calculate_tip">Calculate Tip</string>
@@ -311,3 +307,217 @@ fun TipTimeLayoutPreview() {
     <string name="round_up_tip">Round up tip?</string>
     <string name="tip_amount">Tip Amount: %s</string>
 </resources>
+
+
+/*TUGAS ART SPACE*/
+
+// MainActivity.kt
+package com.example.artspace
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.artspace.ui.theme.ArtSpaceTheme
+
+// Main Activity yang memulai aplikasi
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            // Menetapkan tema aplikasi
+            ArtSpaceTheme {
+                // Membuat permukaan tampilan utama aplikasi
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // Memanggil fungsi utama yang mengendalikan UI aplikasi
+                    ArtSpaceApp()
+                }
+            }
+        }
+    }
+}
+
+// Fungsi utama yang menangani tampilan aplikasi
+@Composable
+fun ArtSpaceApp() {
+    // Variabel yang menyimpan indeks dari artwork yang sedang ditampilkan
+    var currentArtworkIndex by remember { mutableStateOf(0) }
+
+    // Daftar karya seni yang akan ditampilkan dalam aplikasi
+    val artworks = listOf(
+        Artwork(R.drawable.sushi, "Sushi", "Japanese Cuisine", "2023"),
+        Artwork(R.drawable.ramen, "Ramen", "Japanese Noodle Dish", "2022"),
+        Artwork(R.drawable.nasigoreng, "Nasi Goreng", "Indonesian Fried Rice", "2021"),
+        Artwork(R.drawable.bakso, "Bakso", "Indonesian Meatball Soup", "2020"),
+        Artwork(R.drawable.sate, "Sate", "Indonesian Skewered Meat", "2019"),
+        Artwork(R.drawable.katsu, "Katsu", "Japanese Cutlet", "2018"),
+        Artwork(R.drawable.burger, "Burger", "American Fast Food", "2017"),
+        Artwork(R.drawable.steak, "Steak", "Grilled Beef", "2016"),
+        Artwork(R.drawable.spageti, "Spaghetti", "Italian Pasta Dish", "2015"),
+        Artwork(R.drawable.bakmi, "Bakmi", "Chinese-Indonesian Noodles", "2014")
+    )
+
+    // Kolom utama yang menyusun tampilan aplikasi secara vertikal
+    Column(
+        modifier = Modifier
+            .fillMaxSize() // Mengisi seluruh layar
+            .padding(16.dp), // Menambahkan padding di sekeliling kolom
+        horizontalAlignment = Alignment.CenterHorizontally // Mengatur konten agar berada di tengah secara horizontal
+    ) {
+        // Tampilan judul aplikasi
+        Text(
+            text = "Makanan Favoritku", // Teks yang akan ditampilkan
+            fontSize = 32.sp, // Ukuran font teks
+            fontWeight = FontWeight.Bold, // Ketebalan font
+            textAlign = TextAlign.Center, // Pengaturan teks di tengah
+            modifier = Modifier
+                .fillMaxWidth() // Mengisi lebar penuh
+                .padding(bottom = 16.dp), // Menambahkan padding di bawah teks
+            color = Color(0xFF495D99)  // Warna teks yang lebih modern
+        )
+
+        // Menampilkan karya seni saat ini
+        ArtworkDisplay(artworks[currentArtworkIndex])
+
+        Spacer(modifier = Modifier.height(16.dp)) // Menambahkan jarak antar elemen
+
+        // Menampilkan deskripsi karya seni saat ini
+        ArtworkDescription(artworks[currentArtworkIndex])
+
+        Spacer(modifier = Modifier.height(24.dp)) // Menambahkan jarak antar elemen
+
+        // Tombol navigasi untuk berpindah ke karya seni berikutnya atau sebelumnya
+        NavigationButtons(
+            onPreviousClick = {
+                // Logika untuk berpindah ke karya seni sebelumnya
+                currentArtworkIndex = (currentArtworkIndex - 1 + artworks.size) % artworks.size
+            },
+            onNextClick = {
+                // Logika untuk berpindah ke karya seni berikutnya
+                currentArtworkIndex = (currentArtworkIndex + 1) % artworks.size
+            }
+        )
+    }
+}
+
+// Fungsi untuk menampilkan gambar karya seni
+@Composable
+fun ArtworkDisplay(artwork: Artwork) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth() // Mengisi lebar penuh
+            .height(400.dp) // Menetapkan tinggi kotak gambar
+            .padding(8.dp) // Menambahkan padding di sekitar kotak
+            .shadow(8.dp, RoundedCornerShape(4.dp)) // Menambahkan bayangan pada kotak dengan sudut melengkung
+            .clip(RoundedCornerShape(4.dp)) // Mengkliping sudut kotak
+            .background(Color.White) // Memberikan latar belakang berwarna putih
+    ) {
+        // Menampilkan gambar karya seni
+        Image(
+            painter = painterResource(artwork.imageResId), // Mengambil resource gambar dari ID yang diberikan
+            contentDescription = artwork.title, // Deskripsi gambar untuk aksesibilitas
+            contentScale = ContentScale.Fit, // Mengatur skala gambar agar sesuai
+            modifier = Modifier
+                .fillMaxSize() // Mengisi ukuran kotak penuh
+                .padding(16.dp) // Menambahkan padding di dalam kotak gambar
+        )
+    }
+}
+
+// Fungsi untuk menampilkan deskripsi karya seni
+@Composable
+fun ArtworkDescription(artwork: Artwork) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth() // Mengisi lebar penuh
+            .padding(horizontal = 8.dp), // Padding kiri dan kanan
+        color = Color.LightGray, // Warna latar belakang deskripsi
+        shape = RoundedCornerShape(4.dp) // Bentuk kotak dengan sudut melengkung
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp) // Padding di sekitar teks deskripsi
+        ) {
+            // Menampilkan judul karya seni
+            Text(
+                text = artwork.title, // Judul karya seni
+                fontSize = 24.sp, // Ukuran font judul
+                fontWeight = FontWeight.Bold // Ketebalan font
+            )
+            // Menampilkan deskripsi artist dan tahun karya seni
+            Text(
+                text = "${artwork.artist} (${artwork.year})", // Informasi artist dan tahun
+                fontSize = 16.sp // Ukuran font deskripsi
+            )
+        }
+    }
+}
+
+// Fungsi untuk menampilkan tombol navigasi "Previous" dan "Next"
+@Composable
+fun NavigationButtons(onPreviousClick: () -> Unit, onNextClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth() // Mengisi lebar penuh
+            .padding(horizontal = 16.dp), // Padding kiri dan kanan
+        horizontalArrangement = Arrangement.Center // Mengatur tombol berada di tengah
+    ) {
+        // Tombol "Previous" dengan aksi onPreviousClick
+        Button(
+            onClick = onPreviousClick,
+            modifier = Modifier
+                .width(150.dp), // Lebar tombol sama
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF495D99)) // Warna tombol
+        ) {
+            Text(
+                text = "Previous", // Teks tombol
+                fontSize = 16.sp,  // Ukuran font
+                fontWeight = FontWeight.Bold,  // Ketebalan font
+                color = Color.White  // Warna teks
+            )
+        }
+
+        Spacer(modifier = Modifier.width(16.dp)) // Spacer untuk memberi jarak di antara tombol
+
+        // Tombol "Next" dengan aksi onNextClick
+        Button(
+            onClick = onNextClick,
+            modifier = Modifier
+                .width(150.dp), // Lebar tombol sama
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF495D99)) // Warna tombol
+        ) {
+            Text(
+                text = "Next", // Teks tombol
+                fontSize = 16.sp,  // Ukuran font
+                fontWeight = FontWeight.Bold,  // Ketebalan font
+                color = Color.White  // Warna teks
+            )
+        }
+    }
+}
+
+// Data class untuk menyimpan informasi karya seni
+data class Artwork(
+    val imageResId: Int, // ID resource gambar
+    val title: String, // Judul karya seni
+    val artist: String, // Nama artist
+    val year: String // Tahun karya seni
+)
